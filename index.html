@@ -1,0 +1,1779 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07020d">
+<title>MURZZ STORE — NOKOS</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#07020d;
+--card:#12091c;
+--card2:#1b0d29;
+--p:#b84cff;
+--p2:#7b20ff;
+--p3:#e6b7ff;
+--txt:#fbf4ff;
+--muted:#a58aae;
+--line:rgba(184,76,255,.23);
+--glow:rgba(184,76,255,.4)
+}
+
+html{scroll-behavior:smooth}
+
+body{
+min-height:100vh;
+color:var(--txt);
+font-family:Arial,sans-serif;
+background:
+radial-gradient(circle at 50% -10%,rgba(184,76,255,.24),transparent 35%),
+radial-gradient(circle at 100% 90%,rgba(123,32,255,.13),transparent 30%),
+var(--bg);
+overflow-x:hidden
+}
+
+body:after{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:1;
+background:
+linear-gradient(rgba(184,76,255,.035) 1px,transparent 1px),
+linear-gradient(90deg,rgba(184,76,255,.035) 1px,transparent 1px);
+background-size:38px 38px;
+animation:gridMove 10s linear infinite
+}
+
+@keyframes gridMove{
+to{background-position:38px 38px}
+}
+
+#fx{
+position:fixed;
+inset:0;
+z-index:0;
+pointer-events:none
+}
+
+/* LOADER */
+.loader{
+position:fixed;
+inset:0;
+z-index:100;
+background:#07020d;
+display:grid;
+place-items:center;
+transition:.7s cubic-bezier(.2,.8,.2,1)
+}
+
+.loader.hide{
+opacity:0;
+visibility:hidden;
+pointer-events:none;
+transform:scale(1.04)
+}
+
+.loaderIn{
+text-align:center;
+animation:loaderIn .8s ease
+}
+
+@keyframes loaderIn{
+from{opacity:0;transform:scale(.7) translateY(20px);filter:blur(8px)}
+to{opacity:1;transform:none;filter:none}
+}
+
+.loaderLogo{
+font-size:35px;
+font-weight:1000;
+letter-spacing:5px;
+color:var(--p);
+text-shadow:0 0 12px var(--p),0 0 40px rgba(184,76,255,.7);
+animation:pulse 1.5s infinite
+}
+
+.loaderText{
+margin-top:8px;
+color:#927aa0;
+font-size:10px;
+letter-spacing:2px
+}
+
+.loaderBar{
+width:190px;
+height:3px;
+background:#21132c;
+border-radius:20px;
+margin:18px auto 0;
+overflow:hidden
+}
+
+.loaderBar i{
+display:block;
+width:42%;
+height:100%;
+background:linear-gradient(90deg,var(--p2),var(--p),#fff);
+box-shadow:0 0 18px var(--p);
+animation:load 1s infinite
+}
+
+@keyframes load{
+from{transform:translateX(-150%)}
+to{transform:translateX(350%)}
+}
+
+@keyframes pulse{
+50%{
+text-shadow:0 0 18px var(--p),0 0 60px rgba(184,76,255,.9)
+}
+}
+
+/* MAIN */
+.wrap{
+position:relative;
+z-index:2;
+max-width:610px;
+margin:auto;
+padding:22px 14px 55px
+}
+
+.brand{
+text-align:center;
+animation:brandDrop .8s ease
+}
+
+@keyframes brandDrop{
+from{opacity:0;transform:translateY(-18px)}
+to{opacity:1;transform:none}
+}
+
+.logo{
+font-size:30px;
+font-weight:1000;
+letter-spacing:3px;
+color:var(--p);
+text-shadow:0 0 8px var(--p),0 0 35px rgba(184,76,255,.55);
+animation:pulse 2.2s infinite
+}
+
+.dev{
+margin-top:5px;
+color:#927ba0;
+font-size:11px
+}
+
+.page{display:none}
+
+.page.active{
+display:block;
+animation:pageIn .55s cubic-bezier(.2,.8,.2,1)
+}
+
+@keyframes pageIn{
+from{opacity:0;transform:translateY(25px) scale(.97);filter:blur(5px)}
+to{opacity:1;transform:none;filter:none}
+}
+
+/* CARD */
+.card{
+margin-top:21px;
+padding:19px;
+border:1px solid var(--line);
+border-radius:25px;
+background:linear-gradient(145deg,rgba(26,12,39,.92),rgba(7,3,14,.97));
+box-shadow:0 20px 55px rgba(0,0,0,.38),0 0 40px rgba(184,76,255,.09);
+backdrop-filter:blur(16px);
+position:relative;
+overflow:hidden
+}
+
+.card:before{
+content:"";
+position:absolute;
+inset:-2px;
+background:linear-gradient(120deg,transparent 20%,rgba(255,255,255,.07),transparent 45%);
+transform:translateX(-120%);
+animation:cardShine 6s ease-in-out infinite;
+pointer-events:none
+}
+
+@keyframes cardShine{
+50%,100%{transform:translateX(120%)}
+}
+
+.card:after{
+content:"";
+position:absolute;
+width:140px;
+height:140px;
+right:-80px;
+bottom:-80px;
+border-radius:50%;
+background:rgba(184,76,255,.1);
+filter:blur(25px);
+animation:cardOrb 4s ease-in-out infinite alternate;
+pointer-events:none
+}
+
+@keyframes cardOrb{
+to{transform:translate(-25px,-20px);opacity:.5}
+}
+
+.badge{
+display:inline-flex;
+align-items:center;
+gap:7px;
+padding:7px 11px;
+border:1px solid var(--line);
+border-radius:99px;
+background:rgba(184,76,255,.065);
+color:var(--p3);
+font-size:10px;
+font-weight:1000;
+letter-spacing:1px;
+animation:badgeGlow 2s infinite
+}
+
+@keyframes badgeGlow{
+50%{box-shadow:0 0 20px rgba(184,76,255,.12)}
+}
+
+.dot{
+width:6px;
+height:6px;
+border-radius:50%;
+background:var(--p);
+box-shadow:0 0 10px var(--p);
+animation:blink 1.2s infinite
+}
+
+@keyframes blink{
+50%{opacity:.2;transform:scale(.7)}
+}
+
+h1{
+font-size:28px;
+margin-top:13px
+}
+
+.sub{
+margin-top:7px;
+color:var(--muted);
+font-size:13px;
+line-height:1.6
+}
+
+/* VIDEO */
+.videoWrap{
+margin-top:17px;
+position:relative;
+aspect-ratio:16/9;
+border-radius:19px;
+overflow:hidden;
+border:1px solid var(--line);
+background:#000;
+box-shadow:0 0 35px rgba(184,76,255,.12),inset 0 0 30px rgba(184,76,255,.08);
+animation:videoIn .8s ease
+}
+
+@keyframes videoIn{
+from{opacity:0;transform:scale(.94);filter:blur(4px)}
+to{opacity:1;transform:none;filter:none}
+}
+
+.videoWrap video{
+width:100%;
+height:100%;
+display:block;
+object-fit:cover;
+background:#000
+}
+
+.videoScan{
+position:absolute;
+inset:0;
+pointer-events:none;
+border:1px solid rgba(184,76,255,.15);
+box-shadow:inset 0 0 35px rgba(184,76,255,.1);
+animation:scan 2.5s ease-in-out infinite
+}
+
+.videoScan:after{
+content:"";
+position:absolute;
+left:0;
+right:0;
+height:1px;
+top:-5%;
+background:linear-gradient(90deg,transparent,rgba(230,183,255,.7),transparent);
+box-shadow:0 0 14px var(--p);
+animation:videoScanLine 4s linear infinite
+}
+
+@keyframes scan{
+50%{box-shadow:inset 0 0 65px rgba(184,76,255,.22)}
+}
+
+@keyframes videoScanLine{
+0%{top:-5%;opacity:0}
+10%{opacity:1}
+90%{opacity:1}
+100%{top:105%;opacity:0}
+}
+
+/* PRICE */
+.price{
+margin-top:15px;
+text-align:center;
+padding:13px;
+border:1px solid var(--line);
+border-radius:17px;
+background:rgba(184,76,255,.05);
+animation:priceFloat 3s ease-in-out infinite
+}
+
+@keyframes priceFloat{
+50%{transform:translateY(-2px)}
+}
+
+.price small{
+display:block;
+color:var(--muted);
+font-size:10px
+}
+
+.price b{
+display:block;
+color:var(--p3);
+font-size:28px;
+margin-top:3px;
+text-shadow:0 0 18px rgba(184,76,255,.55)
+}
+
+.label{
+display:block;
+margin-top:15px;
+color:#c2a9ca;
+font-size:11px;
+font-weight:800
+}
+
+.input{
+width:100%;
+margin-top:7px;
+padding:14px 15px;
+border:1px solid var(--line);
+border-radius:14px;
+outline:0;
+background:#08030e;
+color:#fff;
+font-size:14px;
+transition:.25s
+}
+
+.input::placeholder{color:#715a7c}
+
+.input:focus{
+border-color:rgba(184,76,255,.8);
+box-shadow:0 0 0 3px rgba(184,76,255,.055),0 0 28px rgba(184,76,255,.18);
+transform:translateY(-1px)
+}
+
+.input.error{border-color:rgba(255,70,140,.6)}
+
+.btn{
+position:relative;
+width:100%;
+padding:14px 16px;
+border:0;
+border-radius:14px;
+margin-top:10px;
+font-weight:1000;
+cursor:pointer;
+overflow:hidden;
+transition:.2s
+}
+
+.btn:before{
+content:"";
+position:absolute;
+top:0;
+left:-120%;
+width:65%;
+height:100%;
+background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent);
+transform:skewX(-20deg)
+}
+
+.btn:hover:before{
+left:145%;
+transition:.7s
+}
+
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.965)}
+
+.primary{
+color:#170022;
+background:linear-gradient(135deg,#e6b7ff,#b84cff,#7b20ff);
+box-shadow:0 0 28px rgba(184,76,255,.28)
+}
+
+.primary:hover{box-shadow:0 0 38px rgba(184,76,255,.45)}
+
+.secondary{
+color:#e7caff;
+background:#14091e;
+border:1px solid var(--line)
+}
+
+.secondary:hover{
+border-color:rgba(184,76,255,.65);
+box-shadow:0 0 25px rgba(184,76,255,.12)
+}
+
+.note{
+margin-top:11px;
+padding:10px;
+border-radius:12px;
+background:rgba(184,76,255,.035);
+border:1px solid rgba(184,76,255,.08);
+color:#806b8b;
+font-size:10px;
+line-height:1.5;
+text-align:center
+}
+
+.shake{animation:shake .35s}
+
+@keyframes shake{
+20%{transform:translateX(-6px)}
+40%{transform:translateX(6px)}
+60%{transform:translateX(-4px)}
+80%{transform:translateX(4px)}
+}
+
+/* TOP */
+.top{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+margin-top:21px;
+animation:topIn .6s ease
+}
+
+@keyframes topIn{
+from{opacity:0;transform:translateY(15px)}
+to{opacity:1;transform:none}
+}
+
+.top h1{
+margin:0;
+font-size:27px
+}
+
+/* SASUKE BANNER */
+.sasukeBanner{
+width:100%;
+aspect-ratio:3.2/1;
+margin-top:15px;
+border:1px solid var(--line);
+border-radius:20px;
+overflow:hidden;
+background:#09030f;
+box-shadow:
+0 0 30px rgba(184,76,255,.15),
+inset 0 0 25px rgba(184,76,255,.08);
+position:relative;
+animation:sasukeIn .7s ease both
+}
+
+.sasukeBanner:after{
+content:"";
+position:absolute;
+inset:0;
+pointer-events:none;
+background:linear-gradient(110deg,transparent 20%,rgba(255,255,255,.10),transparent 45%);
+transform:translateX(-120%);
+animation:sasukeShine 5s ease-in-out infinite
+}
+
+.sasukeBanner img{
+width:100%;
+height:100%;
+display:block;
+object-fit:cover
+}
+
+@keyframes sasukeIn{
+from{opacity:0;transform:translateY(12px) scale(.97)}
+to{opacity:1;transform:none}
+}
+
+@keyframes sasukeShine{
+50%,100%{transform:translateX(120%)}
+}
+
+/* STATS */
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:9px;
+margin-top:14px
+}
+
+.stat{
+padding:12px;
+border:1px solid var(--line);
+border-radius:15px;
+background:rgba(184,76,255,.035);
+text-align:center;
+transition:.25s;
+position:relative;
+overflow:hidden
+}
+
+.stat:after{
+content:"";
+position:absolute;
+inset:0;
+background:linear-gradient(120deg,transparent,rgba(255,255,255,.06),transparent);
+transform:translateX(-100%);
+animation:statShine 5s infinite
+}
+
+@keyframes statShine{
+50%,100%{transform:translateX(100%)}
+}
+
+.stat:hover{
+transform:translateY(-3px);
+box-shadow:0 0 25px rgba(184,76,255,.12)
+}
+
+.stat b{
+display:block;
+color:var(--p3);
+font-size:18px;
+text-shadow:0 0 15px rgba(184,76,255,.3)
+}
+
+.stat span{
+display:block;
+color:#796484;
+font-size:9px;
+margin-top:3px
+}
+
+/* TOOLBAR */
+.toolbar{
+margin-top:15px;
+display:flex;
+gap:8px
+}
+
+.search{
+flex:1;
+min-width:0;
+padding:13px;
+border:1px solid var(--line);
+border-radius:14px;
+background:#08030e;
+color:#fff;
+outline:0;
+transition:.25s
+}
+
+.search:focus{
+border-color:rgba(184,76,255,.7);
+box-shadow:0 0 20px rgba(184,76,255,.1)
+}
+
+.select{
+width:125px;
+padding:13px 8px;
+border:1px solid var(--line);
+border-radius:14px;
+background:#08030e;
+color:#e4caff;
+outline:0;
+transition:.25s
+}
+
+.select:focus{border-color:rgba(184,76,255,.7)}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:11px;
+margin-top:13px
+}
+
+.item{
+padding:14px;
+border:1px solid var(--line);
+border-radius:18px;
+background:linear-gradient(145deg,#170b22,#08030f);
+transition:.3s;
+animation:itemIn .5s both;
+position:relative;
+overflow:hidden
+}
+
+.item:before{
+content:"";
+position:absolute;
+width:120px;
+height:120px;
+left:-90px;
+bottom:-90px;
+border-radius:50%;
+background:rgba(123,32,255,.1);
+filter:blur(20px);
+transition:.5s
+}
+
+.item:after{
+content:"";
+position:absolute;
+width:70px;
+height:70px;
+border-radius:50%;
+right:-35px;
+top:-35px;
+background:rgba(184,76,255,.13);
+filter:blur(12px);
+animation:orb 3s ease-in-out infinite alternate
+}
+
+.item:hover:before{transform:translate(35px,-35px)}
+
+.item:hover{
+transform:translateY(-5px) scale(1.012);
+border-color:rgba(184,76,255,.55);
+box-shadow:0 16px 34px rgba(184,76,255,.1),0 0 20px rgba(184,76,255,.06)
+}
+
+@keyframes itemIn{
+from{opacity:0;transform:translateY(16px) scale(.96)}
+to{opacity:1;transform:none}
+}
+
+@keyframes orb{
+to{transform:translate(-18px,18px);opacity:.35}
+}
+
+.country{
+font-size:14px;
+font-weight:1000
+}
+
+.num{
+margin-top:6px;
+color:#aa8db5;
+font-size:11px;
+word-break:break-all
+}
+
+.available{
+margin-top:8px;
+color:var(--p3);
+font-size:9px;
+font-weight:1000;
+animation:availablePulse 2s infinite
+}
+
+@keyframes availablePulse{
+50%{text-shadow:0 0 12px var(--p)}
+}
+
+.copy{
+width:100%;
+margin-top:9px;
+padding:9px;
+border:0;
+border-radius:10px;
+background:#251036;
+color:#e7caff;
+font-size:10px;
+font-weight:1000;
+cursor:pointer;
+transition:.2s
+}
+
+.copy:hover{
+box-shadow:0 0 20px rgba(184,76,255,.2);
+transform:translateY(-1px)
+}
+
+.copy:active{transform:scale(.96)}
+
+.empty{
+grid-column:1/-1;
+text-align:center;
+padding:28px;
+color:#715f7a
+}
+
+/* CODE */
+.codeBox{
+display:none;
+margin-top:14px;
+padding:17px;
+text-align:center;
+border-radius:17px;
+border:1px solid var(--line);
+background:rgba(184,76,255,.04)
+}
+
+.codeBox.show{
+display:block;
+animation:code .55s
+}
+
+.code{
+margin-top:6px;
+color:var(--p3);
+font-size:29px;
+font-weight:1000;
+letter-spacing:7px;
+text-shadow:0 0 22px rgba(184,76,255,.7)
+}
+
+@keyframes code{
+0%{opacity:0;transform:scale(.7);filter:blur(8px);letter-spacing:18px}
+70%{transform:scale(1.06)}
+100%{opacity:1;transform:none;filter:none}
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+color:#57445e;
+font-size:10px;
+margin-top:28px;
+padding-bottom:10px
+}
+
+/* TOAST */
+.toast{
+position:fixed;
+left:50%;
+bottom:21px;
+z-index:90;
+transform:translate(-50%,30px) scale(.9);
+opacity:0;
+pointer-events:none;
+padding:12px 16px;
+border-radius:14px;
+border:1px solid var(--line);
+background:#170b21;
+color:#f0dcff;
+box-shadow:0 0 30px rgba(184,76,255,.16);
+transition:.3s;
+white-space:nowrap;
+max-width:90%;
+overflow:hidden;
+text-overflow:ellipsis
+}
+
+.toast.show{
+opacity:1;
+transform:translate(-50%,0) scale(1)
+}
+
+/* MODAL */
+.modal{
+position:fixed;
+inset:0;
+z-index:80;
+display:none;
+place-items:center;
+padding:18px;
+background:rgba(0,0,0,.68);
+backdrop-filter:blur(10px)
+}
+
+.modal.show{display:grid}
+
+.modalCard{
+width:min(470px,100%);
+padding:20px;
+border:1px solid var(--line);
+border-radius:23px;
+background:#10071a;
+box-shadow:0 25px 80px #000;
+animation:modal .35s ease
+}
+
+.close{
+float:right;
+border:1px solid var(--line);
+background:#1a0b25;
+color:#e7caff;
+border-radius:9px;
+padding:6px 9px;
+cursor:pointer;
+transition:.2s
+}
+
+.close:hover{
+transform:rotate(90deg);
+box-shadow:0 0 15px rgba(184,76,255,.2)
+}
+
+.chips{
+display:flex;
+flex-wrap:wrap;
+gap:7px;
+margin-top:13px
+}
+
+.chip{
+padding:7px 9px;
+border-radius:99px;
+border:1px solid var(--line);
+color:#b99cc4;
+font-size:10px;
+transition:.2s
+}
+
+.chip:hover{
+color:#fff;
+border-color:rgba(184,76,255,.7);
+transform:translateY(-2px)
+}
+
+.info{
+margin-top:13px;
+padding:11px;
+border-radius:13px;
+background:rgba(184,76,255,.04);
+color:#866f91;
+font-size:11px;
+line-height:1.5
+}
+
+@keyframes modal{
+from{opacity:0;transform:scale(.9) translateY(20px);filter:blur(5px)}
+to{opacity:1;transform:none;filter:none}
+}
+
+/* RIPPLE */
+.ripple{
+position:fixed;
+width:12px;
+height:12px;
+border:2px solid rgba(230,183,255,.8);
+border-radius:50%;
+pointer-events:none;
+z-index:200;
+transform:translate(-50%,-50%);
+animation:ripple .65s ease-out forwards
+}
+
+@keyframes ripple{
+to{width:120px;height:120px;opacity:0;border-width:1px}
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:#07020d}
+::-webkit-scrollbar-thumb{
+background:linear-gradient(var(--p2),var(--p));
+border-radius:99px
+}
+
+/* MOBILE */
+@media(max-width:400px){
+.grid{grid-template-columns:1fr}
+.toolbar{flex-direction:column}
+.select{width:100%}
+.logo{font-size:26px}
+h1{font-size:25px}
+.sasukeBanner{aspect-ratio:2.8/1}
+}
+
+@media(prefers-reduced-motion:reduce){
+*,
+*:before,
+*:after{
+animation-duration:.001ms!important;
+animation-iteration-count:1!important;
+scroll-behavior:auto!important;
+transition:none!important
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="loader" id="loader">
+<div class="loaderIn">
+<div class="loaderLogo">MURZZ STORE</div>
+<div class="loaderText">SECURE NOKOS ACCESS</div>
+<div class="loaderBar"><i></i></div>
+</div>
+</div>
+
+<canvas id="fx"></canvas>
+
+<main class="wrap">
+
+<header class="brand">
+<div class="logo">MURZZ STORE</div>
+<div class="dev">Developer: MURZZ STORE</div>
+</header>
+
+<section class="page active" id="loginPage">
+
+<div class="card">
+
+<span class="badge">
+<i class="dot"></i>
+SECURE ACCESS
+</span>
+
+<h1>Unlock MURZZ STORE</h1>
+
+<p class="sub">
+Masukkan Access Key untuk membuka katalog NOKOS.
+Akses video tersedia langsung dari halaman.
+</p>
+
+<div class="videoWrap">
+
+<video
+id="localVideo"
+controls
+autoplay
+muted
+loop
+playsinline
+preload="auto"
+poster=""
+>
+<source src="video.mp4" type="video/mp4">
+Browser kamu tidak mendukung pemutar video.
+</video>
+
+<div class="videoScan"></div>
+
+</div>
+
+<div class="price">
+<small>KEY ACCESS</small>
+<b>Rp5.000</b>
+</div>
+
+<label class="label" for="keyInput">ACCESS KEY</label>
+
+<input
+id="keyInput"
+class="input"
+placeholder="Masukkan access key..."
+autocomplete="off"
+spellcheck="false"
+>
+
+<button class="btn primary" id="loginBtn" onclick="loginKey()">
+LOGIN DENGAN KEY
+</button>
+
+<button class="btn secondary" onclick="openBuy()">
+BELI KEY Rp5.000
+</button>
+
+<div class="note">
+Masukkan key yang valid untuk membuka katalog NOKOS.
+Video berada langsung di HTML dan tidak memiliki menu ganti video.
+</div>
+
+</div>
+</section>
+
+<section class="page" id="nokaPage">
+
+<div class="top">
+
+<div>
+<h1>NOKOS</h1>
+<p class="sub">MURZZ STORE Premium Catalogue</p>
+</div>
+
+<span class="badge">
+<i class="dot"></i>
+<span id="roleBadge">UNLOCKED</span>
+</span>
+
+</div>
+
+<!-- BANNER SASUKE -->
+<div class="sasukeBanner">
+<img src="sasuke.jpg" alt="Sasuke">
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<b id="totalStat">0</b>
+<span>TOTAL</span>
+</div>
+
+<div class="stat">
+<b id="stockStat">0</b>
+<span>TERSEDIA</span>
+</div>
+
+<div class="stat">
+<b id="countryStat">0</b>
+<span>NEGARA</span>
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="toolbar">
+
+<input
+id="search"
+class="search"
+placeholder="Cari negara / nomor..."
+oninput="renderNumbers()"
+>
+
+<select
+id="countryFilter"
+class="select"
+onchange="renderNumbers()">
+
+<option value="">Semua negara</option>
+
+</select>
+
+</div>
+
+<div id="numberGrid" class="grid"></div>
+
+<div class="codeBox" id="codeBox">
+
+<div style="font-size:10px;color:#887391">
+KODE ACAK LOKAL
+</div>
+
+<div class="code" id="code">------</div>
+
+<div style="font-size:10px;color:#66536e;margin-top:6px">
+Kode dibuat secara lokal.
+</div>
+
+</div>
+
+</div>
+
+<button class="btn secondary" onclick="openInfo()">
+INFO AKSES
+</button>
+
+<button class="btn secondary" onclick="logoutKey()">
+KELUAR
+</button>
+
+</section>
+
+<footer>
+MURZZ STORE • NOKOS PREMIUM
+</footer>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<div class="modal" id="infoModal" onclick="if(event.target===this)closeInfo()">
+
+<div class="modalCard">
+
+<button class="close" onclick="closeInfo()">×</button>
+
+<h2>MURZZ STORE</h2>
+
+<p class="sub">
+Akses MURZZ STORE tersimpan di perangkat.
+</p>
+
+<div class="chips">
+<span class="chip">OWNER</span>
+<span class="chip">USER</span>
+<span class="chip">Direct Video</span>
+<span class="chip">Search</span>
+<span class="chip">Country Filter</span>
+<span class="chip">Animations</span>
+<span class="chip">Particles</span>
+</div>
+
+<div class="info">
+Video dipasang langsung melalui HTML.
+Tidak ada fitur upload, ganti, hapus, atau kunci video
+dari halaman.
+</div>
+
+<button class="btn secondary" onclick="closeInfo()">
+TUTUP
+</button>
+
+</div>
+</div>
+
+<script>
+
+const OWNER_KEY="MZ-OWNR-7X9Q-V4KP";
+const USER_KEY="MZ-USER-3N8X-Q7LM";
+
+const numbers=[
+["Indonesia","+6281234567801"],
+["Indonesia","+6281234567802"],
+["Indonesia","+6281234567803"],
+["Indonesia","+6281234567804"],
+["Indonesia","+6281234567805"],
+["Indonesia","+6281234567806"],
+["Indonesia","+6281234567807"],
+["Indonesia","+6281234567808"],
+["Indonesia","+6281234567809"],
+["Indonesia","+6281234567810"],
+["Malaysia","+60123456781"],
+["Malaysia","+60123456782"],
+["Malaysia","+60123456783"],
+["Malaysia","+60123456784"],
+["Malaysia","+60123456785"],
+["Malaysia","+60123456786"],
+["Malaysia","+60123456787"],
+["Malaysia","+60123456788"],
+["Malaysia","+60123456789"],
+["Malaysia","+60123456790"],
+["Singapore","+6581234567"],
+["Thailand","+66812345678"],
+["Vietnam","+84912345678"],
+["Philippines","+639123456789"],
+["India","+919876543210"],
+["India","+919876543211"],
+["India","+919876543212"],
+["United States","+12025550101"],
+["United States","+12025550102"],
+["United Kingdom","+447700900101"],
+["United Kingdom","+447700900102"],
+["Canada","+14165550101"],
+["Australia","+61412345678"],
+["Germany","+4915123456789"],
+["France","+33612345678"],
+["Italy","+393331234567"],
+["Spain","+34612345678"],
+["Brazil","+5511987654321"],
+["Mexico","+5215512345678"],
+["Turkey","+905321234567"],
+["Japan","+819012345678"],
+["South Korea","+821012345678"],
+["China","+8613812345678"],
+["Hong Kong","+85251234567"],
+["Taiwan","+886912345678"],
+["Pakistan","+923001234567"],
+["Bangladesh","+8801712345678"],
+["Saudi Arabia","+966501234567"],
+["UAE","+971501234567"],
+["South Africa","+27821234567"],
+["Nigeria","+2348012345678"],
+["Egypt","+201012345678"],
+["Russia","+79161234567"],
+["Ukraine","+380501234567"],
+["Poland","+48512123456"],
+["Netherlands","+31612345678"],
+["Sweden","+46701234567"],
+["Norway","+4791234567"],
+["Denmark","+4520123456"],
+["Finland","+358401234567"],
+["Portugal","+351912345678"],
+["Argentina","+5491112345678"],
+["Chile","+56912345678"],
+["Colombia","+573001234567"],
+["Peru","+51912345678"],
+["New Zealand","+64211234567"],
+["Ireland","+353851234567"],
+["Austria","+436601234567"],
+["Belgium","+324701234567"],
+["Switzerland","+41791234567"],
+["Czech Republic","+420601234567"],
+["Romania","+40721234567"],
+["Greece","+306912345678"],
+["Israel","+972501234567"],
+["Morocco","+212612345678"],
+["Kenya","+254712345678"],
+["Ghana","+233241234567"],
+["Tanzania","+255712345678"],
+["Uganda","+256712345678"],
+["Nepal","+9779812345678"],
+["Sri Lanka","+947712345678"],
+["Cambodia","+855121234567"],
+["Laos","+856201234567"],
+["Myanmar","+959912345678"],
+["Mongolia","+97688123456"],
+["Kazakhstan","+77011234567"],
+["Georgia","+995512345678"],
+["Serbia","+381641234567"],
+["Croatia","+385912345678"],
+["Bulgaria","+359881234567"],
+["Slovakia","+421901234567"],
+["Slovenia","+386401234567"],
+["Lithuania","+37061234567"],
+["Latvia","+37121234567"],
+["Estonia","+37251234567"],
+["Iceland","+3546123456"],
+["Luxembourg","+352621234567"],
+["Cyprus","+35796123456"],
+["Malta","+35699123456"]
+];
+
+for(let i=0;i<3500;i++){
+const id=String(i).padStart(4,"0");
+numbers.push(["Indonesia","+6289900"+id]);
+numbers.push(["Malaysia","+6019900"+id]);
+}
+
+for(let i=1;i<=800;i++){
+const id=String(i).padStart(4,"0");
+numbers.push(["Indonesia","+6287700"+id]);
+}
+
+const $=id=>document.getElementById(id);
+
+let toastTimer=null;
+let currentRole="";
+
+function toast(message){
+const t=$("toast");
+t.textContent=message;
+t.classList.add("show");
+clearTimeout(toastTimer);
+toastTimer=setTimeout(()=>t.classList.remove("show"),2300);
+}
+
+function showPage(id){
+document.querySelectorAll(".page").forEach(page=>page.classList.remove("active"));
+$(id).classList.add("active");
+window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function loginKey(){
+
+const input=$("keyInput");
+const btn=$("loginBtn");
+const key=input.value.trim().toUpperCase();
+
+input.classList.remove("error","shake");
+
+if(!key){
+input.classList.add("error","shake");
+toast("Masukkan Access Key.");
+return;
+}
+
+btn.disabled=true;
+btn.textContent="MEMVERIFIKASI...";
+
+setTimeout(()=>{
+
+if(key===OWNER_KEY){
+
+currentRole="OWNER";
+localStorage.setItem("murzzRole","OWNER");
+btn.textContent="OWNER ACCESS";
+toast("OWNER berhasil masuk.");
+
+setTimeout(()=>openNoka(),500);
+return;
+
+}
+
+if(key===USER_KEY){
+
+currentRole="USER";
+localStorage.setItem("murzzRole","USER");
+btn.textContent="USER ACCESS";
+toast("USER berhasil masuk.");
+
+setTimeout(()=>openNoka(),500);
+return;
+
+}
+
+btn.disabled=false;
+btn.textContent="LOGIN DENGAN KEY";
+input.classList.add("error","shake");
+toast("Access Key tidak valid.");
+
+},700);
+}
+
+function openNoka(){
+showPage("nokaPage");
+fillCountries();
+renderNumbers();
+$("roleBadge").textContent=currentRole||"UNLOCKED";
+animateStats();
+}
+
+function openBuy(){
+window.open(
+"https://www.tiktok.com/@fary7585?_r=1&_t=ZS-9A4GU2ptOvi",
+"_blank",
+"noopener"
+);
+}
+
+function logoutKey(){
+
+localStorage.removeItem("murzzRole");
+currentRole="";
+$("keyInput").value="";
+$("loginBtn").disabled=false;
+$("loginBtn").textContent="LOGIN DENGAN KEY";
+showPage("loginPage");
+toast("Akses ditutup.");
+
+}
+
+function fillCountries(){
+
+const select=$("countryFilter");
+
+if(select.options.length>1)return;
+
+[...new Set(numbers.map(item=>item[0]))]
+.sort()
+.forEach(country=>{
+
+const option=document.createElement("option");
+option.value=country;
+option.textContent=country;
+select.appendChild(option);
+
+});
+
+}
+
+function renderNumbers(){
+
+const grid=$("numberGrid");
+
+const query=$("search").value.toLowerCase().trim();
+const country=$("countryFilter").value;
+
+const data=numbers.filter(item=>
+(!country||item[0]===country)&&
+(
+!query||
+item[0].toLowerCase().includes(query)||
+item[1].includes(query)
+)
+);
+
+$("totalStat").textContent=numbers.length.toLocaleString("id-ID");
+$("stockStat").textContent=numbers.length.toLocaleString("id-ID");
+$("countryStat").textContent=new Set(numbers.map(x=>x[0])).size;
+
+if(!data.length){
+grid.innerHTML='<div class="empty">Data tidak ditemukan.</div>';
+return;
+}
+
+const visible=data.slice(0,100);
+
+grid.innerHTML=visible.map(
+(item,index)=>`
+
+<article class="item" style="animation-delay:${Math.min(index*12,500)}ms">
+
+<div class="country">
+${escapeHTML(item[0])}
+</div>
+
+<div class="num">
+${escapeHTML(item[1])}
+</div>
+
+<div class="available">
+● TERSEDIA
+</div>
+
+<button class="copy" onclick="copyNumber('${item[1]}')">
+SALIN NOMOR
+</button>
+
+</article>
+
+`
+).join("");
+
+if(data.length>100){
+
+grid.innerHTML+=`
+
+<div class="empty">
+Menampilkan 100 dari
+${data.length.toLocaleString("id-ID")}
+hasil.<br>
+Gunakan pencarian untuk menemukan nomor lainnya.
+</div>
+
+`;
+
+}
+
+}
+
+function escapeHTML(text){
+
+return text.replace(
+/[&<>"']/g,
+char=>({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+}[char])
+);
+
+}
+
+async function copyNumber(number){
+
+try{
+await navigator.clipboard.writeText(number);
+}catch(error){
+
+const area=document.createElement("textarea");
+area.value=number;
+document.body.appendChild(area);
+area.select();
+document.execCommand("copy");
+area.remove();
+
+}
+
+const randomCode=Math.floor(100000+Math.random()*900000);
+
+$("code").textContent=randomCode;
+$("codeBox").classList.remove("show");
+
+void $("codeBox").offsetWidth;
+
+$("codeBox").classList.add("show");
+
+toast("Nomor berhasil disalin.");
+
+makeRipple(innerWidth/2,innerHeight-70);
+
+}
+
+function openInfo(){
+$("infoModal").classList.add("show");
+}
+
+function closeInfo(){
+$("infoModal").classList.remove("show");
+}
+
+$("keyInput").addEventListener(
+"keydown",
+event=>{
+if(event.key==="Enter")loginKey();
+});
+
+window.addEventListener(
+"load",
+()=>{
+
+setTimeout(()=>{
+$("loader").classList.add("hide");
+},1100);
+
+const savedRole=localStorage.getItem("murzzRole");
+
+if(savedRole==="OWNER"||savedRole==="USER"){
+
+currentRole=savedRole;
+
+setTimeout(()=>{
+openNoka();
+},1200);
+
+}
+
+});
+
+const localVideo=$("localVideo");
+
+window.addEventListener(
+"load",
+()=>{
+
+if(localVideo){
+
+localVideo.muted=true;
+
+localVideo.play().catch(()=>{
+console.log("Autoplay diblokir browser.");
+});
+
+}
+
+});
+
+const canvas=$("fx");
+const ctx=canvas.getContext("2d");
+
+let particles=[];
+
+function resizeCanvas(){
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+}
+
+resizeCanvas();
+
+addEventListener("resize",resizeCanvas);
+
+for(let i=0;i<110;i++){
+
+particles.push({
+
+x:Math.random()*innerWidth,
+y:Math.random()*innerHeight,
+r:.3+Math.random()*1.9,
+vx:(Math.random()-.5)*.38,
+vy:(Math.random()-.5)*.38,
+a:.18+Math.random()*.65,
+pulse:Math.random()*Math.PI*2
+
+});
+
+}
+
+function animateParticles(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+
+p.x+=p.vx;
+p.y+=p.vy;
+p.pulse+=.02;
+
+if(p.x<0)p.x=canvas.width;
+if(p.x>canvas.width)p.x=0;
+
+if(p.y<0)p.y=canvas.height;
+if(p.y>canvas.height)p.y=0;
+
+const alpha=p.a+Math.sin(p.pulse)*.08;
+
+ctx.beginPath();
+
+ctx.arc(
+p.x,
+p.y,
+p.r,
+0,
+Math.PI*2
+);
+
+ctx.fillStyle=`rgba(184,76,255,${alpha})`;
+ctx.shadowBlur=12;
+ctx.shadowColor="#b84cff";
+ctx.fill();
+ctx.shadowBlur=0;
+
+});
+
+requestAnimationFrame(animateParticles);
+
+}
+
+animateParticles();
+
+function moveGlow(x,y){
+
+const gx=x/innerWidth*100;
+const gy=y/innerHeight*100;
+
+document.body.style.background=
+
+`radial-gradient(
+circle at ${gx}% ${gy}%,
+rgba(184,76,255,.11),
+transparent 27%
+),
+radial-gradient(
+circle at 50% -10%,
+rgba(184,76,255,.22),
+transparent 35%
+),
+#07020d`;
+
+}
+
+document.addEventListener(
+"mousemove",
+e=>{
+moveGlow(e.clientX,e.clientY);
+}
+);
+
+document.addEventListener(
+"touchmove",
+e=>{
+
+if(e.touches[0]){
+moveGlow(
+e.touches[0].clientX,
+e.touches[0].clientY
+);
+}
+
+},
+{passive:true}
+);
+
+function makeRipple(x,y){
+
+const r=document.createElement("span");
+
+r.className="ripple";
+r.style.left=x+"px";
+r.style.top=y+"px";
+
+document.body.appendChild(r);
+
+setTimeout(()=>r.remove(),700);
+
+}
+
+addEventListener(
+"pointerdown",
+e=>{
+
+if(
+e.pointerType!=="mouse"||
+innerWidth<900
+){
+
+makeRipple(
+e.clientX,
+e.clientY
+);
+
+}
+
+});
+
+addEventListener(
+"click",
+e=>{
+
+if(
+e.target.closest(".btn,.copy,.close,.chip")
+){
+
+makeRipple(
+e.clientX,
+e.clientY
+);
+
+}
+
+});
+
+function animateStats(){
+
+const total=numbers.length;
+const countries=new Set(numbers.map(x=>x[0])).size;
+
+const totalEl=$("totalStat");
+const stockEl=$("stockStat");
+const countryEl=$("countryStat");
+
+const duration=650;
+const startTime=performance.now();
+
+function tick(now){
+
+const progress=Math.min((now-startTime)/duration,1);
+const eased=1-Math.pow(1-progress,3);
+
+const value=Math.floor(total*eased);
+const countryValue=Math.floor(countries*eased);
+
+totalEl.textContent=value.toLocaleString("id-ID");
+stockEl.textContent=value.toLocaleString("id-ID");
+countryEl.textContent=countryValue.toLocaleString("id-ID");
+
+if(progress<1){
+
+requestAnimationFrame(tick);
+
+}else{
+
+totalEl.textContent=total.toLocaleString("id-ID");
+stockEl.textContent=total.toLocaleString("id-ID");
+countryEl.textContent=countries.toLocaleString("id-ID");
+
+}
+
+}
+
+requestAnimationFrame(tick);
+
+}
+
+document.addEventListener(
+"keydown",
+e=>{
+if(e.key==="Escape")closeInfo();
+});
+
+document.addEventListener(
+"visibilitychange",
+()=>{
+
+if(document.hidden){
+document.title="MURZZ STORE";
+}else{
+document.title="MURZZ STORE — NOKOS";
+}
+
+});
+
+$("localVideo").addEventListener(
+"play",
+()=>{
+toast("Video diputar.");
+}
+);
+
+$("localVideo").addEventListener(
+"pause",
+()=>{
+toast("Video dijeda.");
+}
+);
+
+</script>
+
+</body>
+</html>
